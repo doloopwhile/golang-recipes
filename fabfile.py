@@ -6,6 +6,8 @@ import os
 env.deploy_path = 'output'
 DEPLOY_PATH = env.deploy_path
 
+env.content_path = 'content'
+
 # Remote server configuration
 production = 'root@localhost:22'
 dest_path = '/var/www'
@@ -22,14 +24,14 @@ def clean():
         local('mkdir {deploy_path}'.format(**env))
 
 def build():
-    local('pelican -s pelicanconf.py')
+    local('pelican {content_path} -s pelicanconf.py'.format(**env))
 
 def rebuild():
     clean()
     build()
 
 def regenerate():
-    local('pelican -r -s pelicanconf.py')
+    local('pelican {content_path} -r -s pelicanconf.py'.format(**env))
 
 def serve():
     local('cd {deploy_path} && python -m http.server'.format(**env))
@@ -39,7 +41,7 @@ def reserve():
     serve()
 
 def preview():
-    local('pelican -s publishconf.py')
+    local('pelican {content_path} -s publishconf.py'.format(**env))
 
 def cf_upload():
     rebuild()
@@ -51,7 +53,7 @@ def cf_upload():
 
 @hosts(production)
 def publish():
-    local('pelican -s publishconf.py')
+    local('pelican {content_path} -s publishconf.py'.format(**env))
     project.rsync_project(
         remote_dir=dest_path,
         exclude=".DS_Store",
