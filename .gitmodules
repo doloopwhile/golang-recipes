@@ -1,0 +1,3 @@
+[submodule "lxml"]
+	path = lxml
+	url = github:doloopwhile/lxml
