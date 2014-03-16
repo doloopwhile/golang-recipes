@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Golang Recipes</title><link href="http://doloopwhile.github.io/golang-recipes/" rel="alternate"></link><link href="http://doloopwhile.github.io/golang-recipes/feeds/all.atom.xml" rel="self"></link><id>http://doloopwhile.github.io/golang-recipes/</id><updated>2014-03-14T00:00:00+01:00</updated><entry><title>Processing a String One Character/Byte at a Time</title><link href="http://doloopwhile.github.io/golang-recipes/processing-a-string-one-characterbyte-at-a-time.html" rel="alternate"></link><updated>2014-03-14T00:00:00+01:00</updated><author><name>OMOTO Kenji</name></author><id>tag:doloopwhile.github.io/golang-recipes,2014-03-14:processing-a-string-one-characterbyte-at-a-time.html</id><summary type="html">&lt;p&gt;Processing each character/byte in string.&lt;/p&gt;
+&lt;!-- continue --&gt;
+
+&lt;h2&gt;Solution&lt;/h2&gt;
+&lt;p&gt;Use &lt;code&gt;range&lt;/code&gt; statement to process each character.
+Then, &lt;code&gt;for&lt;/code&gt; statement iterate characters and its position in string.&lt;/p&gt;
+&lt;p&gt;Use index access to process each byte.
+&lt;code&gt;len&lt;/code&gt; returns number of bytes in string.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;package&lt;/span&gt; &lt;span class="n"&gt;main&lt;/span&gt;
+
+&lt;span class="n"&gt;import&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;fmt&amp;quot;&lt;/span&gt;
+
+&lt;span class="n"&gt;func&lt;/span&gt; &lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;greeting&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Hi世界!&amp;quot;&lt;/span&gt;
+
+  &lt;span class="n"&gt;fmt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Println&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Charactors:&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;pos&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="o"&gt;:=&lt;/span&gt; &lt;span class="n"&gt;range&lt;/span&gt; &lt;span class="n"&gt;greeting&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;fmt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;%d =&amp;gt; %s %U %d&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;pos&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;string&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;char&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+
+  &lt;span class="n"&gt;fmt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Println&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Bytes:&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;:=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;greeting&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;fmt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;%d =&amp;gt; 0x%x&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;greeting&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="c1"&gt;// Charactors&lt;/span&gt;
+&lt;span class="c1"&gt;// 0 =&amp;gt; H U+0048 72&lt;/span&gt;
+&lt;span class="c1"&gt;// 1 =&amp;gt; i U+0069 105&lt;/span&gt;
+&lt;span class="c1"&gt;// 2 =&amp;gt; 世 U+4E16 19990&lt;/span&gt;
+&lt;span class="c1"&gt;// 5 =&amp;gt; 界 U+754C 30028&lt;/span&gt;
+&lt;span class="c1"&gt;// 8 =&amp;gt; ! U+0021 33&lt;/span&gt;
+&lt;span class="c1"&gt;// Bytes&lt;/span&gt;
+&lt;span class="c1"&gt;// 0 =&amp;gt; 0x48&lt;/span&gt;
+&lt;span class="c1"&gt;// 1 =&amp;gt; 0x69&lt;/span&gt;
+&lt;span class="c1"&gt;// 2 =&amp;gt; 0xe4&lt;/span&gt;
+&lt;span class="c1"&gt;// 3 =&amp;gt; 0xb8&lt;/span&gt;
+&lt;span class="c1"&gt;// 4 =&amp;gt; 0x96&lt;/span&gt;
+&lt;span class="c1"&gt;// 5 =&amp;gt; 0xe7&lt;/span&gt;
+&lt;span class="c1"&gt;// 6 =&amp;gt; 0x95&lt;/span&gt;
+&lt;span class="c1"&gt;// 7 =&amp;gt; 0x8c&lt;/span&gt;
+&lt;span class="c1"&gt;// 8 =&amp;gt; 0x21&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Discussion&lt;/h2&gt;
+&lt;p&gt;By the way, what is the type of &lt;code&gt;char&lt;/code&gt; in above example? It is &lt;code&gt;rune&lt;/code&gt;.
+&lt;code&gt;rune&lt;/code&gt; is a fundamental type (actually alias of &lt;code&gt;int32&lt;/code&gt;) which represent &lt;em&gt;character&lt;/em&gt; in Golang.
+&lt;code&gt;unicode&lt;/code&gt; package provide functions to detect kind of character or to convert character case,
+which accept &lt;code&gt;rune&lt;/code&gt; as argument.&lt;/p&gt;
+&lt;p&gt;On the other hand, &lt;code&gt;string&lt;/code&gt; also looks like array of &lt;code&gt;byte&lt;/code&gt;.
+It is possible to convert &lt;code&gt;string&lt;/code&gt; and &lt;code&gt;[]byte&lt;/code&gt; each other in actual.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;package&lt;/span&gt; &lt;span class="n"&gt;main&lt;/span&gt;
+
+&lt;span class="n"&gt;import&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;fmt&amp;quot;&lt;/span&gt;
+
+&lt;span class="n"&gt;func&lt;/span&gt; &lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;astr&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Hi世界!&amp;quot;&lt;/span&gt;
+  &lt;span class="n"&gt;fmt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Println&lt;/span&gt;&lt;span class="p"&gt;([]&lt;/span&gt;&lt;span class="n"&gt;byte&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;astr&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+
+  &lt;span class="n"&gt;bytearray&lt;/span&gt; &lt;span class="o"&gt;:=&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt;&lt;span class="n"&gt;byte&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="mi"&gt;72&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;105&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;228&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;184&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;150&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;231&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;149&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;140&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;33&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="n"&gt;fmt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Println&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;string&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;bytearray&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="c1"&gt;//[72 105 228 184 150 231 149 140 33]&lt;/span&gt;
+&lt;span class="c1"&gt;//Hi世界!&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;See also&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://golang.org/ref/spec#Conversions_to_and_from_a_string_type"&gt;"Conversions to and from a string type" in The Go Programming Language Specification&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</summary><category term="text"></category></entry></feed>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Processing a String One Character/Byte at a Time - Golang Recipes</title>
+        <meta charset="utf-8" />
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="http://doloopwhile.github.io/golang-recipes/theme/static/css/style.css" rel="stylesheet" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link href="http://doloopwhile.github.io/golang-recipes/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Golang Recipes Full Atom Feed" />
+        <link href="http://doloopwhile.github.io/golang-recipes/feeds/text.atom.xml" type="application/atom+xml" rel="alternate" title="Golang Recipes Categories Atom Feed" />
+    </head>
+
+    <body id="index" class="archive">
+        <div class="container">
+            <div class="header">
+                <ul class="nav nav-pills pull-right">
+                    <li class=""><a href="http://doloopwhile.github.io/golang-recipes">Home</a></li>
+                    <li><a href="http://doloopwhile.github.io/golang-recipes/archives.html">Archives</a></li>
+                </ul>
+                <h3 class="text-muted"><a href="http://doloopwhile.github.io/golang-recipes">Golang Recipes</a></h3>
+				<h2 class="text-muted"></h2>
+             </div>
+<section id="content" class="article content">
+  <header>
+    <h2 class="entry-title">
+      <a href="http://doloopwhile.github.io/golang-recipes/processing-a-string-one-characterbyte-at-a-time.html" rel="bookmark"
+         title="Permalink to Processing a String One Character/Byte at a Time">Processing a String One Character/Byte at a Time</a></h2>
+ 
+  </header>
+  
+     
+  <div class="entry-content">
+    <p>Processing each character/byte in string.</p>
+<!-- continue -->
+
+<h2>Solution</h2>
+<p>Use <code>range</code> statement to process each character.
+Then, <code>for</code> statement iterate characters and its position in string.</p>
+<p>Use index access to process each byte.
+<code>len</code> returns number of bytes in string.</p>
+<div class="highlight"><pre><span class="n">package</span> <span class="n">main</span>
+
+<span class="n">import</span> <span class="s">&quot;fmt&quot;</span>
+
+<span class="n">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="n">greeting</span> <span class="o">=</span> <span class="s">&quot;Hi世界!&quot;</span>
+
+  <span class="n">fmt</span><span class="p">.</span><span class="n">Println</span><span class="p">(</span><span class="s">&quot;Charactors:&quot;</span><span class="p">)</span>
+  <span class="k">for</span> <span class="n">pos</span><span class="p">,</span> <span class="kt">char</span> <span class="o">:=</span> <span class="n">range</span> <span class="n">greeting</span> <span class="p">{</span>
+    <span class="n">fmt</span><span class="p">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">&quot;%d =&gt; %s %U %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">string</span><span class="p">(</span><span class="kt">char</span><span class="p">),</span> <span class="kt">char</span><span class="p">,</span> <span class="kt">char</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="n">fmt</span><span class="p">.</span><span class="n">Println</span><span class="p">(</span><span class="s">&quot;Bytes:&quot;</span><span class="p">)</span>
+  <span class="k">for</span> <span class="n">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">(</span><span class="n">greeting</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
+    <span class="n">fmt</span><span class="p">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">&quot;%d =&gt; 0x%x</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">greeting</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Charactors</span>
+<span class="c1">// 0 =&gt; H U+0048 72</span>
+<span class="c1">// 1 =&gt; i U+0069 105</span>
+<span class="c1">// 2 =&gt; 世 U+4E16 19990</span>
+<span class="c1">// 5 =&gt; 界 U+754C 30028</span>
+<span class="c1">// 8 =&gt; ! U+0021 33</span>
+<span class="c1">// Bytes</span>
+<span class="c1">// 0 =&gt; 0x48</span>
+<span class="c1">// 1 =&gt; 0x69</span>
+<span class="c1">// 2 =&gt; 0xe4</span>
+<span class="c1">// 3 =&gt; 0xb8</span>
+<span class="c1">// 4 =&gt; 0x96</span>
+<span class="c1">// 5 =&gt; 0xe7</span>
+<span class="c1">// 6 =&gt; 0x95</span>
+<span class="c1">// 7 =&gt; 0x8c</span>
+<span class="c1">// 8 =&gt; 0x21</span>
+</pre></div>
+
+
+<h2>Discussion</h2>
+<p>By the way, what is the type of <code>char</code> in above example? It is <code>rune</code>.
+<code>rune</code> is a fundamental type (actually alias of <code>int32</code>) which represent <em>character</em> in Golang.
+<code>unicode</code> package provide functions to detect kind of character or to convert character case,
+which accept <code>rune</code> as argument.</p>
+<p>On the other hand, <code>string</code> also looks like array of <code>byte</code>.
+It is possible to convert <code>string</code> and <code>[]byte</code> each other in actual.</p>
+<div class="highlight"><pre><span class="n">package</span> <span class="n">main</span>
+
+<span class="n">import</span> <span class="s">&quot;fmt&quot;</span>
+
+<span class="n">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="n">astr</span> <span class="o">=</span> <span class="s">&quot;Hi世界!&quot;</span>
+  <span class="n">fmt</span><span class="p">.</span><span class="n">Println</span><span class="p">([]</span><span class="n">byte</span><span class="p">(</span><span class="n">astr</span><span class="p">))</span>
+
+  <span class="n">bytearray</span> <span class="o">:=</span> <span class="p">[]</span><span class="n">byte</span><span class="p">{</span><span class="mi">72</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">228</span><span class="p">,</span> <span class="mi">184</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">231</span><span class="p">,</span> <span class="mi">149</span><span class="p">,</span> <span class="mi">140</span><span class="p">,</span> <span class="mi">33</span><span class="p">}</span>
+  <span class="n">fmt</span><span class="p">.</span><span class="n">Println</span><span class="p">(</span><span class="n">string</span><span class="p">(</span><span class="n">bytearray</span><span class="p">))</span>
+<span class="p">}</span>
+
+<span class="c1">//[72 105 228 184 150 231 149 140 33]</span>
+<span class="c1">//Hi世界!</span>
+</pre></div>
+
+
+<h2>See also</h2>
+<ul>
+<li><a href="http://golang.org/ref/spec#Conversions_to_and_from_a_string_type">"Conversions to and from a string type" in The Go Programming Language Specification</a></li>
+</ul>
+  </div><!-- /.entry-content -->
+   <footer class="post-info text-muted">
+    Posted on <abbr class="published" title="2014-03-14T00:00:00">
+      Fri 14 March 2014
+    </abbr>
+    <address class="vcard author">
+      by <a class="url fn" href="http://doloopwhile.github.io/golang-recipes/author/omoto-kenji.html">OMOTO Kenji</a>
+    </address> in <a href="http://doloopwhile.github.io/golang-recipes/category/text.html">Text</a> Tagged <a href="http://doloopwhile.github.io/golang-recipes/tag/text.html">text </a>  </footer><!-- /.post-info -->
+</section>
+    <div class="comment">
+        <div id="disqus_thread"></div> <!-- comment app container -->
+    </div>
+	<!-- Comment BEGIN -->
+    <script type="text/javascript">
+        var disqus_shortname = 'golangrecipes'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+     <!-- Comment END -->
+            <footer id="contentinfo" class="footer">
+                    <nav class="pull-right bottom-nav">
+                        <a href="http://doloopwhile.github.io/golang-recipes/feeds/all.atom.xml">RSS</a>
+                    </nav>
+                    <address id="about" class="vcard body">
+                    &copy; <a href="http://doloopwhile.github.io/golang-recipes">Golang Recipes</a> Proudly powered by <a href="http://getpelican.com/">Pelican</a>
+                    </address><!-- /#about -->
+            </footer><!-- /#contentinfo -->
+        </div><!-- container -->
+    </body>
+</html>
