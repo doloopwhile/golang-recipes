@@ -1,4 +1,1 @@
-golang-cookbook
-===============
-
-Translate to "Python Cookbook" to golang
+http://doloopwhile.github.io/golang-recipes/
